@@ -1,0 +1,96 @@
+name,format,text,file
+acc_rate_2016,pct1,8.5%,README.md
+acc_rate_2017,pct1,12.0%,README.md
+acc_cf_rate_2017,pct1,11.9%,README.md
+acc_share_explained_all,pct0,3%,README.md
+acc_share_explained_top,pct0,26%,README.md
+acc_share_explained_top_model,pct0,12%,README.md
+acc_mild_2016,int,87,README.md
+acc_mild_2017,int,136,README.md
+acc_serious_2016,int,38,README.md
+acc_serious_2017,int,41,README.md
+acc_sites_up,int,4,README.md
+acc_employees,comma,"1,470",README.md
+acc_mcnemar_p,p3,p = 0.002,README.md
+acc_year_or,dec2,1.47,README.md
+acc_engaged_or,dec2,1.53,README.md
+acc_engaged_p,p3,p = 0.005,README.md
+acc_top_site_pp,pp1,+5.3 points,README.md
+acc_top_site_p_holm,p2,p = 0.15,README.md
+acc_top_site_dis_2016,pct0,19%,README.md
+acc_top_site_dis_2017,pct0,29%,README.md
+acc_same_engagement_share,pct1,97.6%,README.md
+acc_became_disengaged,int,31,README.md
+acc_became_disengaged_top_site,int,29,README.md
+acc_engagement_rose,int,0,README.md
+rec_hires,int,446,README.md
+rec_untracked,int,205,README.md
+rec_untracked_attrition,pct0,13%,README.md
+rec_tracked_attrition,pct0,28%,README.md
+rec_untracked_quota,dec2,1.17,README.md
+rec_tracked_quota,dec2,1.01,README.md
+rec_untracked_quota_p,p3,p = 0.019,README.md
+rec_holm_untracked_quota,p3,0.057,README.md
+rec_channel_attrition_p,p2,p = 0.27,README.md
+rec_channel_quota_p,p2,p = 0.55,README.md
+rec_tracked_share,pct0,54%,README.md
+rec_search_firm_n,int,10,README.md
+rec_search_firm_quota_lo,dec2,0.31,README.md
+rec_search_firm_quota_hi,dec2,1.47,README.md
+rat_top_male,pct1,32.5%,README.md
+rat_top_female,pct1,21.5%,README.md
+rat_or_within_level,dec2,1.38,README.md
+rat_or_within_level_lo,dec2,1.07,README.md
+rat_or_within_level_hi,dec2,1.77,README.md
+rat_hourly_p,p3,p = 0.026,README.md
+rat_hourly_p_holm,p3,0.078,README.md
+eng_sales_or_cut2,dec2,1.96,README.md
+eng_vacation_r,dec2,-0.01,README.md
+pay_raw_gap,usd,"$2,650",README.md
+pay_premium,usd,$783,README.md
+pay_premium_lo,usd,-$235,README.md
+pay_premium_hi,usd,"$1,800",README.md
+pay_premium_p,p2,p = 0.13,README.md
+pay_premium_log_pct,pct1raw,+1.3%,README.md
+pay_gap_hourly,usd,"$1,107",README.md
+pay_mix_p,p2,p = 0.16,README.md
+acc_year_or_lo,dec2,1.16,README.md
+acc_year_or_hi,dec2,1.87,README.md
+acc_engaged_or_lo,dec2,1.14,README.md
+acc_engaged_or_hi,dec2,2.05,README.md
+acc_serious_p,p2,p = 0.82,README.md
+rat_mh_or,dec2,1.37,README.md
+rat_mh_p,p3,p = 0.016,README.md
+rat_or_cut2,dec2,0.81,README.md
+rat_or_cut3,dec2,0.92,README.md
+rat_or_cut5,dec2,1.00,README.md
+rat_holm_4plus,p3,0.054,README.md
+eng_sales_or_cut2_lo,dec2,1.52,README.md
+eng_sales_or_cut2_hi,dec2,2.52,README.md
+pay_premium_log_p,p3,p = 0.078,README.md
+acc_added_mild,int,49 of the 52,README.md
+acc_added_total,int,52 extra,README.md
+acc_type_mix_p,p2,p = 0.20,README.md
+acc_overtime_link_p,p2,no link to accidents (p = 0.82,README.md
+rat_level_interaction_p,p2,by job level (p = 0.59,README.md
+rat_hourly_share,pct0,71%,README.md
+rat_or_within_level_p,p3,p = 0.013,README.md
+rat_hourly_f3,pct0,more 3s (37%,README.md
+rat_hourly_m3,pct0,37% vs 28%,README.md
+rat_hourly_f4,pct0,fewer 4s (13%,README.md
+rat_hourly_m4,pct0,13% vs 18%,README.md
+rec_untracked_share,pct0,(46%),README.md
+rec_tracked,int,| 241 |,README.md
+eng_sales_or_max,dec1,2 to 2.8,README.md
+acc_mild_share_2016,pct1,69.6%,README.md
+acc_mild_share_2017,pct1,76.8%,README.md
+acc_share_explained_all,pct0,about 3%,card.json
+acc_added_mild,int,49 of the 52,card.json
+acc_serious_2016,int,(38 to 41),card.json
+acc_serious_2017,int,38 to 41,card.json
+rec_untracked_share,pct0,the 46%,card.json
+rec_untracked_attrition,pct0,leave at 13%,card.json
+rec_tracked_attrition,pct0,against 28%,card.json
+acc_employees,comma,"1,470",card.json
+acc_mild_2016,int,"""aValue"": 87",card.json
+acc_mild_2017,int,"""bValue"": 136",card.json

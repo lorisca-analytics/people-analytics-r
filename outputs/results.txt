@@ -1,0 +1,289 @@
+R 4.4.3 | sandwich 3.1.3 | lmtest 0.9.40
+
+
+## Accidents: data checks
+hr_data_2: 2940 rows, keys unique
+survey_data_2: 2940 rows, keys unique
+accident_data: 302 rows, keys unique
+Employees in both years: 1470 | changed site: 0 | same engagement score both years: 97.6%
+Accident types by year:
+      type
+year   Mild Moderate Severe
+  2016   87       32      6
+  2017  136       36      5
+
+
+## Accidents: is the rise real?
+# A tibble: 2 x 6
+   year     n events   rate     lo    hi
+  <dbl> <int>  <int>  <dbl>  <dbl> <dbl>
+1  2016  1470    125 0.0850 0.0713 0.100
+2  2017  1470    177 0.120  0.104  0.138
+Paired test (McNemar), all sites: p = 0.002
+2017 vs 2016 odds ratio, errors clustered by employee: 1.47 (95% CI 1.16 to 1.87), p = 0.002
+Unpaired chi-squared, for comparison: p = 0.002
+
+
+## Accidents: by site
+# A tibble: 4 x 6
+  location     r2016 r2017 pp_change      p p_holm
+  <chr>        <dbl> <dbl>     <dbl>  <dbl>  <dbl>
+1 Southfield  0.0764 0.130      5.32 0.0375  0.150
+2 Northwood   0.0644 0.102      3.73 0.145   0.434
+3 East Valley 0.113  0.143      3.02 0.254   0.434
+4 West River  0.0824 0.110      2.75 0.175   0.434
+Sites where the rate went up: 4 of 4
+
+
+## Accidents: did disengagement move everywhere, or only at one site?
+# A tibble: 8 x 6
+  location     year     n disengaged    lo    hi
+  <chr>       <dbl> <int>      <dbl> <dbl> <dbl>
+1 East Valley  2016   364      0.261 0.217 0.309
+2 East Valley  2017   364      0.264 0.219 0.312
+3 Northwood    2016   295      0.210 0.165 0.261
+4 Northwood    2017   295      0.210 0.165 0.261
+5 Southfield   2016   301      0.189 0.147 0.238
+6 Southfield   2017   301      0.286 0.235 0.340
+7 West River   2016   510      0.253 0.216 0.293
+8 West River   2017   510      0.255 0.218 0.295
+# A tibble: 4 x 5
+  location    dis_2016 dis_2017 changed           p
+  <chr>          <dbl>    <dbl>   <int>       <dbl>
+1 East Valley    0.261    0.264       1 1          
+2 Northwood      0.210    0.210       0 1          
+3 Southfield     0.189    0.286      29 0.000000200
+4 West River     0.253    0.255       1 1          
+Engagement moves 2016 to 2017 (rows 2016 score, columns 2017 score):
+   
+      1   2   3   4   5
+  1 122   0   0   0   0
+  2   0 221   0   0   0
+  3   0  29 656   0   0
+  4   0   2   5 322   0
+  5   0   0   0   0 113
+
+
+## Accidents: how much of the rise does disengagement explain?
+# A tibble: 5 x 7
+  location    rate_2016 rate_2017 rate_2017_if_engagement_held rise_pp explained_pp share_explained
+  <chr>           <dbl>     <dbl>                        <dbl>   <dbl>        <dbl>           <dbl>
+1 All sites      0.0850     0.120                        0.119    3.54      0.121           0.0341 
+2 East Valley    0.113      0.143                        0.143    3.02      0.0128          0.00423
+3 Northwood      0.0644     0.102                        0.102    3.73      0               0      
+4 Southfield     0.0764     0.130                        0.116    5.32      1.39            0.261  
+5 West River     0.0824     0.110                        0.110    2.75      0.00349         0.00127
+Model-based check:
+# A tibble: 4 x 4
+  location    actual predicted predicted_if_engagement_held
+  <chr>        <dbl>     <dbl>                        <dbl>
+1 East Valley  0.143     0.143                        0.143
+2 Northwood    0.102     0.102                        0.102
+3 Southfield   0.130     0.130                        0.123
+4 West River   0.110     0.110                        0.110
+
+
+## Accidents: did engaged staff also have more accidents?
+# A tibble: 4 x 5
+  location    n_2016 n_2017 rate_2016 rate_2017
+  <chr>        <int>  <int>     <dbl>     <dbl>
+1 East Valley    269    268    0.108     0.131 
+2 Northwood      233    233    0.0472    0.0944
+3 Southfield     244    215    0.0410    0.0884
+4 West River     381    380    0.0814    0.105 
+Engaged staff only, 2017 vs 2016 odds ratio (clustered): 1.53 (95% CI 1.14 to 2.05), p = 0.005
+
+
+## Accidents: what kind of accidents rose?
+# A tibble: 2 x 3
+   year  mild moderate_or_severe
+  <dbl> <int>              <int>
+1  2016    87                 38
+2  2017   136                 41
+Mild, paired test: p = < 0.001 | Moderate or severe, paired test: p = 0.817
+Share of accidents that were mild: 69.6% to 76.8%, test of the mix: p = 0.202
+
+
+## Accidents: overtime as a second candidate driver
+# A tibble: 4 x 4
+  location         p mean_2016 mean_2017
+  <chr>        <dbl>     <dbl>     <dbl>
+1 East Valley 0.990       8.87      8.86
+2 Northwood   0.482       8.58      9.12
+3 Southfield  0.0998      8.67      9.97
+4 West River  0.826       9.98     10.1 
+Overtime and accidents, both years, clustered: odds ratio per hour 1.001, p = 0.822
+
+
+## Accidents: headline tests, Holm-adjusted as one family
+# A tibble: 4 x 3
+  test                            p  p_holm
+  <chr>                       <dbl>   <dbl>
+1 Overall rise (paired)    0.00184  0.00551
+2 Rise among engaged staff 0.00487  0.00975
+3 Mild accidents rose      0.000801 0.00320
+4 Moderate or severe rose  0.817    0.817  
+
+
+## Recruiting: data checks
+Hires: 446 | no source recorded: 205 (46%)
+
+
+## Recruiting: the quick read (all hires, untracked shown as a channel)
+# A tibble: 5 x 5
+  source             n quota attrition rating
+  <chr>          <int> <dbl>     <dbl>  <dbl>
+1 Not recorded     205 1.17      0.132   2.88
+2 Applied Online   130 1.06      0.246   2.93
+3 Referral          45 1.02      0.333   2.84
+4 Campus            56 0.908     0.286   2.93
+5 Search Firm       10 0.887     0.5     2.7 
+On average quota, the top "channel" is: Not recorded
+Attrition differs by channel, all hires (Fisher, simulated): p = < 0.001
+
+
+## Recruiting: are untracked hires a random gap, or a different group?
+# A tibble: 2 x 5
+  untracked     n quota attrition rating
+  <lgl>     <int> <dbl>     <dbl>  <dbl>
+1 FALSE       241  1.01     0.282   2.90
+2 TRUE        205  1.17     0.132   2.88
+Quota, untracked minus tracked: +0.16 (95% CI +0.03 to +0.29), p = 0.019
+Attrition, untracked vs tracked: 13% vs 28%, p = < 0.001
+
+
+## Recruiting: channels compared on tracked hires only
+# A tibble: 4 x 8
+  source             n quota quota_lo quota_hi attrition att_lo att_hi
+  <chr>          <int> <dbl>    <dbl>    <dbl>     <dbl>  <dbl>  <dbl>
+1 Applied Online   130 1.06     0.944     1.17     0.246  0.175  0.329
+2 Referral          45 1.02     0.813     1.23     0.333  0.200  0.490
+3 Campus            56 0.908    0.702     1.11     0.286  0.173  0.422
+4 Search Firm       10 0.887    0.307     1.47     0.5    0.187  0.813
+Quota by channel: ANOVA p = 0.547 | Kruskal-Wallis p = 0.427
+Attrition by channel (Fisher exact): p = 0.274
+
+
+## Recruiting: headline tests, Holm-adjusted as one family
+# A tibble: 4 x 3
+  test                                          p   p_holm
+  <chr>                                     <dbl>    <dbl>
+1 Untracked vs tracked, quota            0.0190   0.0571  
+2 Untracked vs tracked, attrition        0.000176 0.000703
+3 Channels differ on quota (tracked)     0.547    0.548   
+4 Channels differ on attrition (tracked) 0.274    0.548   
+
+
+## Ratings: data checks
+hr_data: 1470 rows, keys unique
+performance_data: 1470 rows, keys unique
+
+
+## Ratings: raw gap
+# A tibble: 2 x 7
+  gender     n events  rate    lo    hi avg_rating
+  <chr>  <int>  <int> <dbl> <dbl> <dbl>      <dbl>
+1 Female   763    164 0.215 0.186 0.246       2.75
+2 Male     707    230 0.325 0.291 0.361       2.92
+
+
+## Ratings: job level mix
+        
+         Hourly Manager Salaried
+  Female  0.777   0.039    0.183
+  Male    0.631   0.106    0.263
+# A tibble: 6 x 7
+  job_level gender     n events  rate    lo    hi
+  <chr>     <chr>  <int>  <int> <dbl> <dbl> <dbl>
+1 Hourly    Female   593     90 0.152 0.124 0.183
+2 Hourly    Male     446     92 0.206 0.170 0.247
+3 Manager   Female    30     21 0.7   0.506 0.853
+4 Manager   Male      75     61 0.813 0.707 0.894
+5 Salaried  Female   140     53 0.379 0.298 0.464
+6 Salaried  Male     186     77 0.414 0.342 0.488
+
+
+## Ratings: gap within job level
+# A tibble: 3 x 6
+  model                term       odds_ratio    lo    hi          p
+  <chr>                <chr>           <dbl> <dbl> <dbl>      <dbl>
+1 raw                  genderMale       1.76  1.39  2.22 0.00000206
+2 within_level         genderMale       1.38  1.07  1.77 0.0134    
+3 level_and_department genderMale       1.38  1.07  1.77 0.0132    
+Mantel-Haenszel, within level: odds ratio 1.37 (95% CI 1.07 to 1.77), p = 0.016
+
+
+## Ratings: every cutoff, within level
+# A tibble: 4 x 7
+  cutoff term       odds_ratio    lo    hi      p p_holm
+  <chr>  <chr>           <dbl> <dbl> <dbl>  <dbl>  <dbl>
+1 2+     genderMale      0.814 0.579  1.14 0.237  0.711 
+2 3+     genderMale      0.919 0.736  1.15 0.457  0.913 
+3 4+     genderMale      1.38  1.07   1.77 0.0134 0.0535
+4 5+     genderMale      1.00  0.629  1.59 0.999  0.999 
+
+
+## Ratings: which level carries the gap
+# A tibble: 3 x 4
+  job_level     n      p p_holm
+  <chr>     <int>  <dbl>  <dbl>
+1 Hourly     1039 0.0259 0.0776
+2 Manager     105 0.295  0.591 
+3 Salaried    326 0.568  0.591 
+Rating distribution in Hourly roles, share of each gender:
+        rating
+gender       1     2     3     4     5
+  Female 0.132 0.344 0.373 0.126 0.025
+  Male   0.152 0.363 0.278 0.182 0.025
+Does the gap differ by job level (gender x level): p = 0.595
+Limit: no promotion history, so job level may itself carry part of any gap.
+
+
+## Also checked: engagement by department
+survey_data: 1470 rows, keys unique
+# A tibble: 3 x 5
+  department      n avg_engagement disengaged avg_vacation
+  <chr>       <int>          <dbl>      <dbl>        <dbl>
+1 Engineering   961           3.15      0.206        12.2 
+2 Finance        63           3.24      0.190        11.5 
+3 Sales         446           2.81      0.330         9.22
+Sales vs other departments, odds of disengagement, holding salary and vacation fixed, at three cutoffs:
+# A tibble: 3 x 6
+  disengaged_if term      odds_ratio    lo    hi            p
+  <chr>         <chr>          <dbl> <dbl> <dbl>        <dbl>
+1 score <= 1    salesTRUE       2.76  1.88  4.07 0.000000267 
+2 score <= 2    salesTRUE       1.96  1.52  2.52 0.000000260 
+3 score <= 3    salesTRUE       2.21  1.68  2.90 0.0000000103
+Vacation days vs engagement score: r = -0.01, p = 0.618
+
+
+## Also checked: are new hires paid more?
+fair_pay_data: 1470 rows, keys unique
+# A tibble: 2 x 3
+  new_hire     n avg_salary
+  <chr>    <int>      <dbl>
+1 No        1072     73425.
+2 Yes        398     76074.
+Raw gap, new minus current: $2,650, p = 0.019
+Job level mix, new vs current: p = 0.161 (no detectable difference in mix)
+# A tibble: 3 x 3
+  job_level n_new gap_new_minus_current
+  <chr>     <int>                 <dbl>
+1 Hourly      268               1107.  
+2 Manager      35                291.  
+3 Salaried     95                 -4.84
+Residual SD by job level:
+# A tibble: 3 x 2
+  job_level resid_sd
+  <chr>        <dbl>
+1 Hourly       9260.
+2 Manager     11553.
+3 Salaried     6565.
+# A tibble: 2 x 6
+  errors    term        estimate    lo    hi     p
+  <chr>     <chr>          <dbl> <dbl> <dbl> <dbl>
+1 classical new_hireYes     783. -247. 1812. 0.136
+2 HC3       new_hireYes     783. -235. 1800. 0.131
+New-hire premium within job level (HC3): $783 (95% CI -$235 to $1,800), p = 0.131, R-squared 0.778
+Log-salary check (HC3): +1.3%, p = 0.078
+Does the premium differ by level (interaction F-test): p = 0.652
